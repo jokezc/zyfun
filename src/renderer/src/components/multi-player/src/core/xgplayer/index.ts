@@ -20,7 +20,7 @@ import type { IBarrage, IBarrageSendOptions, IMultiPlayerOptions } from '../../t
 import { color, icons, language } from '../../utils/static';
 import { storage } from '../../utils/storage';
 import { publicBarrageSend } from '../../utils/tool';
-import { danmuSendPlugin as _danmuSendPlugin, danmuSettingsPlugin, playNextPlugin } from './plugins';
+import { danmuSendPlugin as _danmuSendPlugin, danmuSettingsPlugin, mediaInfoPlugin, playNextPlugin } from './plugins';
 import type { PlayerAdapter } from './types';
 import { uiIconHandle } from './utils';
 
@@ -199,6 +199,9 @@ class XgPlayerAdapter {
         break;
       }
     }
+
+    // 媒体信息（清晰度/码率）
+    options.plugins = [...(options.plugins ?? []), mediaInfoPlugin];
 
     // 初始化
     let player: PlayerAdapter;

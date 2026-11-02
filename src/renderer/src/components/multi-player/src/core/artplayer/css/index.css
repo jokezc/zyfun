@@ -85,6 +85,26 @@
   bottom: 60px !important;
 }
 
+/* 媒体信息徽标 */
+.art-control-mediaInfo {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: #ffffffd9;
+  padding: 0 8px !important;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.art-control-mediaInfo:hover {
+  color: #fff;
+}
+
+.art-media-info-bitrate {
+  color: var(--art-theme);
+}
+
 /* 画质面板 */
 .art-control-quality {
   margin-right: 0 !important;
@@ -228,4 +248,26 @@
 .art-mask .art-state .art-icon svg {
   height: 64px !important;
   width: 64px !important;
+}
+
+/* 左上角媒体信息覆盖层（纯文字，随控制栏显隐） */
+.art-video-player .art-media-info-top {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 10;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: #fff;
+  text-shadow: 0 0 4px rgb(0 0 0 / 60%);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.art-video-player.art-control-show .art-media-info-top {
+  opacity: 1;
 }

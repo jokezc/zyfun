@@ -21,7 +21,7 @@ import { color, icons, language } from '../../utils/static';
 import { storage, storageUtil } from '../../utils/storage';
 import { streamDecoder } from '../../utils/stream-decoder';
 import { publicBarrageSend } from '../../utils/tool';
-import { playNextPlugin } from './plugins';
+import { mediaInfoPlugin, playNextPlugin } from './plugins';
 import type { PlayerAdapter } from './types';
 import { uiIconHandle } from './utils';
 
@@ -79,7 +79,7 @@ class ArtPlayerAdapter {
     isLive: false,
     aspectRatio: true,
     lang: 'zh-cn',
-    controls: [playNextPlugin],
+    controls: [playNextPlugin, mediaInfoPlugin],
     i18n: {
       'zh-cn': {
         // @ts-expect-error 对象字面量只能指定已知属性，并且“playNext”不在类型“Partial<I18nValue>”中。ts(2353)

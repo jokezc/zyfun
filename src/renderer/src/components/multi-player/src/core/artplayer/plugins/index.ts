@@ -1,3 +1,4 @@
+import mediaInfoPlugin from './mediaInfo';
 import playNextPlugin from './playNext';
 
-export { playNextPlugin };
+export { mediaInfoPlugin, playNextPlugin };

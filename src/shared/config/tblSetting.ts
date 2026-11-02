@@ -56,6 +56,18 @@ export const settingList = [
     },
   },
   {
+    key: 'mediaInfo',
+    value: {
+      position: 'topLeft',
+      quality: true,
+      resolution: true,
+      bitrate: true,
+      buffer: true,
+      fps: false,
+      codec: false,
+    },
+  },
+  {
     key: 'cloud',
     value: {
       sync: false,
@@ -128,6 +140,15 @@ export interface ISetting {
     text: number;
     start: number;
     color: number;
+  };
+  mediaInfo: {
+    position: 'topLeft' | 'controls';
+    quality: boolean;
+    resolution: boolean;
+    bitrate: boolean;
+    buffer: boolean;
+    fps: boolean;
+    codec: boolean;
   };
   cloud: {
     sync: boolean;

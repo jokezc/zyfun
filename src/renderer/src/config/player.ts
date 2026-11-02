@@ -8,6 +8,7 @@ export interface IStorePlayer {
     extra: Record<string, any>;
   };
   barrage: ISetting['barrage'];
+  mediaInfo: ISetting['mediaInfo'];
   setting: {
     playNextPreload: boolean;
     playNextEnabled: boolean;
@@ -37,6 +38,15 @@ export const init: IStorePlayer = {
     type: 1,
     color: 2,
     text: 4,
+  },
+  mediaInfo: {
+    position: 'topLeft',
+    quality: true,
+    resolution: true,
+    bitrate: true,
+    buffer: true,
+    fps: false,
+    codec: false,
   },
   setting: {
     playNextPreload: false,

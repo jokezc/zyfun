@@ -187,6 +187,32 @@
             />
             <span class="title" @click="handleDialog('customPlayer')">{{ $t('common.explain') }}</span>
           </t-space>
+          <t-space align="center">
+            <t-select
+              v-model="formData.mediaInfo.position"
+              :options="MEDIAINFO_POSITION_OPTIONS"
+              :style="{ width: '120px' }"
+            />
+            <span class="title">{{ $t('pages.setting.base.player.mediaInfo') }}</span>
+            <t-radio v-model="formData.mediaInfo.quality" allow-uncheck>
+              {{ $t('pages.setting.base.player.mediaInfoQuality') }}
+            </t-radio>
+            <t-radio v-model="formData.mediaInfo.resolution" allow-uncheck>
+              {{ $t('pages.setting.base.player.mediaInfoResolution') }}
+            </t-radio>
+            <t-radio v-model="formData.mediaInfo.bitrate" allow-uncheck>
+              {{ $t('pages.setting.base.player.mediaInfoBitrate') }}
+            </t-radio>
+            <t-radio v-model="formData.mediaInfo.buffer" allow-uncheck>
+              {{ $t('pages.setting.base.player.mediaInfoBuffer') }}
+            </t-radio>
+            <t-radio v-model="formData.mediaInfo.fps" allow-uncheck>
+              {{ $t('pages.setting.base.player.mediaInfoFps') }}
+            </t-radio>
+            <t-radio v-model="formData.mediaInfo.codec" allow-uncheck>
+              {{ $t('pages.setting.base.player.mediaInfoCodec') }}
+            </t-radio>
+          </t-space>
         </t-space>
 
         <dialog-barrage-view v-model:visible="isVisible.barrage" :data="dialogFormData" @submit="onDialogSubmit" />
@@ -333,6 +359,11 @@ const PLAYER_OPTIONS = computed(() => [
   { value: PLAYER_TYPE.CUSTOM, label: t('media.playerMap.customplayer') },
 ]);
 
+const MEDIAINFO_POSITION_OPTIONS = computed(() => [
+  { value: 'topLeft', label: t('pages.setting.base.player.mediaInfoPositionTop') },
+  { value: 'controls', label: t('pages.setting.base.player.mediaInfoPositionBar') },
+]);
+
 const AIGC_PROVIDER_OPTIONS = computed(() => [
   // { value: AIGC_PROVIDER_TYPE.AMZON, label: t('aigc.field.providerMap.amazon') },
   { value: AIGC_PROVIDER_TYPE.ANTHROPIC, label: t('aigc.field.providerMap.anthropic') },
@@ -383,6 +414,7 @@ watch(
   () => ({
     player: formData.value.player,
     barrage: formData.value.barrage,
+    mediaInfo: formData.value.mediaInfo,
   }),
   (newVal, oldVal) => {
     const patch = pickBy(newVal, (value, key) => !isEqual(value, oldVal[key]));
@@ -433,7 +465,12 @@ const getSetting = async () => {
     const resp = await fetchSettingList();
 
     if (isObject(resp) && !isObjectEmpty(resp)) {
-      formData.value = resp as ISetting;
+      // 合并默认值，兼容旧库缺失的新增配置键（嵌套对象逐层合并）
+      formData.value = {
+        ...tblSetting,
+        ...resp,
+        mediaInfo: { ...tblSetting.mediaInfo, ...(resp as ISetting).mediaInfo },
+      } as ISetting;
     }
   } catch (error) {
     console.error(`Failed to get setting conf:`, error);
